@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+  <style>
+    input {
+      border: none;
+    }
+    input:focus {
+      outline: none !important;
+      box-shadow: 0 0 5px grey;
+    }
+    
+    input[type='text'] {
+      width: 40%;
+      -webkit-transition: width 0.35s ease-in-out;
+      transition: width 0.35s ease-in-out;
+    }
+    
+    input[type='text']:focus {
+      width: 50%;
+    }
+  </style>
+  <div class="container">
+
+    <a href="{% url 'supplierprofile' %}"style="margin-top: 5%;" class="btn btn-primary">Back</a>
+    <div class="main-body">
+        <div style="padding: 2% 10%;"class="container">
+            <form method="post" action="{% url 'addproduct' %}" enctype="multipart/form-data">
+                
+            {% csrf_token %}
+            <div class="mb-3">
+                <h5 class="mb-3" id="productlabel">Product Details</h5>
+            </div>
+    
+            <div class="btn-group">
+                <select name="options" >
+                    {% for category in categories %}
+                    <option class="form-select" value="{{category.name}}">{{category.name}}</option>
+                    {% endfor %}
+                  </select>
+              </div>
+              <br><br>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Product Name:</label>
+                <input type="text" class="form-control" name="name" id="productname" >
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Product Description:</label>
+                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="formFileLg" class="form-label">Product Image:</label>
+                <input class="form-control form-control-lg" name="productimage" id="formFileLg" type="file">
+            </div>
+            <div class="mb=3">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+        </div> 
+    </div>
+  </div>
+{% endblock %}

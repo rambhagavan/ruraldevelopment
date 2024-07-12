@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+{% block content %}
+  <style>
+            {% comment %} start for the tab section {% endcomment %}
+            /* Style the tab */
+            .tab {
+              overflow: hidden;
+              border: 1px solid #ccc;
+              background-color: #f1f1f1;
+            }
+
+            /* Style the buttons that are used to open the tab content */
+            .tab button {
+              background-color: inherit;
+              float: left;
+              border: none;
+              outline: none;
+              cursor: pointer;
+              padding: 14px 16px;
+              transition: 0.3s;
+            }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+              background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+              background-color: #ccc;
+            }
+
+            /* Style the tab content */
+            .tabcontent {
+              display: none;
+              padding: 6px 12px;
+              border: 1px solid #ccc;
+              border-top: none;
+            }
+            
+/* Style the close button */
+.topright {
+  float: right;
+  cursor: pointer;
+  font-size: 28px;
+}
+
+.topright:hover {color: red;}
+
+            .tabcontent {
+              animation: fadeEffect 1s; /* Fading effect takes 1 second */
+            }
+            
+            .topright {
+              animation: fadeEffect 1s; /* Fading effect takes 1 second */
+            }
+            
+            /* Go from zero to full opacity */
+            @keyframes fadeEffect {
+              from {opacity: 0;}
+              to {opacity: 1;}
+            }
+              {% comment %} Done for the tab section {% endcomment %}
+    input {
+      border: none;
+    }
+    input:focus {
+      outline: none !important;
+      box-shadow: 0 0 5px grey;
+    }
+    
+    input[type='text'] {
+      width: 40%;
+      -webkit-transition: width 0.35s ease-in-out;
+      transition: width 0.35s ease-in-out;
+    }
+    
+    input[type='text']:focus {
+      width: 50%;
+    }
+    .unselectable {
+         
+      -webkit-user-select: none;
+      
+  
+      
+  }
+  </style>
+  <div class="container">
+    <div class="main-body">
+      <!-- Breadcrumb -->
+      <!--   <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+                <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+        </nav>   -->
+        <form method="post" action='{% url 'supplierprofile' %}' enctype="multipart/form-data">
+          {% csrf_token %}
+      <div class="row gutters-sm">
+        <div style="padding-top: 5%;" class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
+               
+                <img src="/media/{{profileimage}}" alt="Admin" class="rounded-circle" height="150"  width="150" />
+                <div class="mt-3">
+                  <h4>{{name}}</h4>
+                  {% comment %} <p class="text-secondary mb-1">____ Provider</p> {% endcomment %}
+                  <p class="text-muted font-size-sm">{{city}},</p>
+                  <p class="text-muted font-size-sm"> {{state}}, {{zipcode}}</p>
+                  {% comment %} <button class="btn btn-outline-primary">Message</button> {% endcomment %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8" style="padding-top:3% ;">
+          <div class="card mb-3">
+            {% comment %} <form method="post" action='{% url 'supplierprofile' %}'>
+              {% csrf_token %} {% endcomment %}
+              <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Full Name </h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="name" placeholder="Full Name" value="{{name}}"/>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <span style="color:blackgrey;">{{email}}</span>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Mobile</h6>
+                </div>
+
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="phone" placeholder="(+91) 9568745896" value="{{phone}}" />
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">City</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="city" placeholder="Indore" value="{{city}}" />
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">State</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="state" placeholder="M.P." value={{state}} />
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Zip</h6>
+                </div>
+                <div type="text" class="col-sm-9 text-secondary">
+                  <input type="text" name="zipcode" placeholder="452011" value="{{zipcode}}"/>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <span  style="color: green;" >Change Profile Picture</span>
+                </div>
+                <div type="text" class="col-sm-9 text-secondary">
+                  <input style=" margin-top: 5px;" name="profileimage" id="formFileLg" type="file"/>
+                </div>
+              </div>
+
+            
+             
+              <hr />
+
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-info" href="">Save</button>
+              </div>
+            </div>
+        {% comment %} </form> {% endcomment %}
+          </div>
+        </div>
+
+                        
+
+
+        {% comment %}
+      </div> {% endcomment %}
+      <!-- Second Done -->
+    </form>
+
+  </div>
+
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'Products')">Products</button>
+      <button class="tablinks" onclick="openCity(event, 'History')">History</button>
+    </div>
+
+    <div id="Products" class="tabcontent">
+      <span onclick="this.parentElement.style.display='none'" style="float:right"class="topright">&times</span>
+      <h3>Products:</h3>
+              <div style="margin-left:1%; padding: 1% 1%;" class="col-sm-12">
+                <span style="padding-right: 10% ">Products:</span>
+                {% comment %} <a class="btn" style="background-color: darkgrey;" href="">Add</a> {% endcomment %}
+                <a href="{% url 'addproduct' %}"type="button" class="btn btn-primary">Add</a>
+              
+                <a class="btn" style="background-color: darkgrey;" href="{% url 'removeitems' %}">Remove</a>
+              </div>
+              <div class="row col-12">
+              {% for t in productlist %}
+                                             
+              <div style="padding-top: 5%;" class="col-md-4 mb-3">
+              
+                        <div class="card" style="width: 18rem;">
+                        {% comment %} {% if t.image != NULL %} {% endcomment %}
+                        <img style="margin-left: 2%;"width="250px" height="250px" src="/media/{{t.image}}" >
+                        {% comment %} <img src="/media/{{t.image}}" > {% endcomment %}
+                        {% comment %} {% endif %} {% endcomment %}
+                            <div class="card-body">
+                              <h5 class="card-title">{{t.name}}</h5>
+                              <p class="card-text">{{t.description}}</p>
+                              {% comment %} <p class="card-text">{{t.}}</p> {% endcomment %}
+                              {% comment %} <input class="unselectable" type="editable" value="{{t.name}}"></input> {% endcomment %}
+                              {% comment %} <button  name="konsihtani"  value="{{t.id}}" type="submit"class="btn btn-primary">Remove</button> {% endcomment %}
+                            </div>
+                           
+                      </div>
+                  
+               </div>
+            
+               {% endfor %}
+              </div>
+    </div>
+
+    <div id="History" class="tabcontent">
+      <span onclick="this.parentElement.style.display='none'" style="float:right"class="topright">&times</span>
+      <h3>Hired information:</h3>
+      {% comment %} <p>Not hired by any company.</p>  {% endcomment %}
+      {% for t in rt %}   
+                  {% if t.Approval == 'R' %}
+                  <div style="padding-top: 5%;" class="col-md-4 mb-3">
+                  
+                            <div class="card" style="width: 50rem;">
+                                <div class="col-sm-12 row">
+                                  <p class="card-text"><b>{{t.suppliedto}}</b> wants to hired you for <b>{{t.productsupplied}}</b> </p>
+                                  <a href="/request/{{t.id}}/{{'A'}}"> Accept </a>
+                                  <a href="/request/{{t.id}}/{{'N'}}"> Reject </a>
+                                    </div>
+                                
+                              </div>
+                              
+                            </div>
+                            
+                {% endif %}
+       {% endfor %}
+
+
+
+                              {% for t in rt %}                      
+                              {% if t.Approval == 'H' %}
+                              <div style="padding-top: 5%;" class="col-md-4 mb-3">
+                              
+                                        <div class="card" style="width: 50rem;">
+                                            <div class="col-sm-12 row">
+                                              <p class="card-text"><b>{{t.suppliedto}}</b> hired you for Product: <b>{{t.productsupplied}}</b> </p>
+                                              <a href="/request/{{t.id}}/{{'N'}}">Remove </a>
+                                            </div>
+                                            
+                                          </div>
+                                          
+                                        </div>
+                                        
+                                        {% endif %}
+                                {% endfor %}
+      </div>
+
+
+    
+  </div>
+  <script>
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+    function openCity(evt, cityName) {
+      // Declare all variables
+      var i, tabcontent, tablinks;
+    
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+    
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+    
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    } 
+  </script>
+{% endblock %}

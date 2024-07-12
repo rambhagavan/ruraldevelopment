@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+      margin-top: 20px;
+      background: #fafafa;
+    }
+    /*==================================================
+      Nearby People CSS
+      ==================================================*/
+    
+    .people-nearby .google-maps {
+      background: #f8f8f8;
+      border-radius: 4px;
+      border: 1px solid #f1f2f2;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .people-nearby .google-maps .map {
+      height: 300px;
+      width: 100%;
+      border: none;
+    }
+    
+    .people-nearby .nearby-user {
+      padding: 20px 0;
+      border-top: 1px solid #f1f2f2;
+      border-bottom: 1px solid #f1f2f2;
+      margin-bottom: 20px;
+    }
+    
+    img.profile-photo-lg {
+      height: 80px;
+      width: 80px;
+      border-radius: 8%;
+    }
+input {
+  border: none;
+}
+input:focus {
+  outline: none !important;
+  box-shadow: 0 0 5px grey;
+}
+
+input[type='text'] {
+  width: 40%;
+  -webkit-transition: width 0.35s ease-in-out;
+  transition: width 0.35s ease-in-out;
+}
+
+input[type='text']:focus {
+  width: 50%;}
+</style>
+  <div class="container">
+    <div class="main-body">
+      <!-- Breadcrumb -->
+      <!--   <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+                <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+        </nav>   -->
+        <form method="post" action='{% url 'companyprofile' %}'  enctype="multipart/form-data">
+          {% csrf_token %}
+      <div class="row gutters-sm">
+        <div style="padding-top: 5%;" class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
+                {% comment %} <input style="background-color: transparent;" name="profileimage" id="formFileLg" type="file"> {% endcomment %}
+                  <img src="/media/{{profileimage}}" alt="Admin" class="rounded-circle" height="150" width="150" /></input>
+                </button> 
+                <div class="mt-3">
+                    <h6>Name: </h6>
+                  <p class="text-secondary mb-1">{{name}}</p>
+                  <p class="text-muted font-size-sm">{{city}},{{state}},{{zipcode}}</p>
+                  <!-- <button class="btn btn-primary">Follow</button> -->
+                  {% comment %} <button class="btn btn-outline-primary">Message</button> {% endcomment %}
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8" style="padding-top:3% ;">
+          <div class="card mb-3">
+            {% comment %} <form method="post" action="{% url 'companyprofile' %}">
+            {% csrf_token %} {% endcomment %}
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Company Name / Full Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="name" placeholder="Full Name" value="{{name}}"/>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <span style="color:blackgrey;">{{email}}</span>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Mobile</h6>
+                </div>
+
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="phone" placeholder="(+91) 9568745896" value="{{phone}}" />
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">City</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="city" placeholder="Indore" value="{{city}}" />
+                </div>
+              </div>
+              <hr />
+                        <div class="row">
+                            <div class="col-sm-3">
+                            <h6 class="mb-0">State</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                            <input type="text" name="state" placeholder="M.P." value={{state}} />
+                            </div>
+                        </div>
+              <hr />
+                     <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Zip</h6>
+                        </div>
+                        <div type="text" class="col-sm-9 text-secondary">
+                        <input type="text" name="zipcode" placeholder="452011" value="{{zipcode}}"/>
+                        </div>
+                    </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <span  style="color: green;" >Change Profile Picture</span>
+                </div>
+                <div type="text" class="col-sm-9 text-secondary">
+                  <input style=" margin-top: 5px;" name="profileimage" id="formFileLg" type="file"/>
+                </div>
+              </div>
+              <hr />
+              {% comment %} <span  style="color: green;margin-left: 60px; margin-bottom: 50px;" >Change Profile Picture</span>
+              <input style="margin-left: 50px; margin-top: 5px;" name="profileimage" id="formFileLg" type="file"/> {% endcomment %}
+
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-info" href="">Save</button>
+                    </div>
+            </div>
+        {% comment %} </form> {% endcomment %}
+          </div>
+        </div>
+            <div class="col-sm-12 mb-3">
+                <span style="font-size:25px; font-weight: bolder;">List of Hired user</span>
+                <div class="people-nearby">
+                    <div class="nearby-user">
+                        <hr />
+                        {% for t,w in zipped %}
+                                        <div class="row" style="padding: 2% 2%;">
+                                          <div class="col-md-2 col-sm-2">
+                                             <a href="/{{t.productsupplied}}/{{t.suppliedby}}"><img src="/media/{{w.profileimage}}" alt="user" class="profile-photo-lg" /></a>
+                                          </div>
+                                          <div class="col-md-7 col-sm-7">
+                                              
+                                              <h5 style="margin-top: 25px;"><a href="/{{t.productsupplied}}/{{t.suppliedby}}" class="profile-link">{{t.suppliedby}}</a></h5>
+                                     
+                                     
+                                              <span >{{t.productsupplied}}</span>
+                                              
+                                          </div>
+                                          <div class="col-md-3 col-sm-3"style="margin-top: 25px;">
+                                            <a class="btn btn-info" href="/{{t.productsupplied}}/{{t.suppliedby}}">View Profile</a>
+                                          </div>
+                                        </div>
+                                        <hr />
+                                        {% endfor %}
+
+                                      </div> 
+                  </div>
+            </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

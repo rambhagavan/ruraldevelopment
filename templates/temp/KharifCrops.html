@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row col-12">
+   {% for t in data %}
+   <div class="card" style="width: 18rem;">
+     {% if t.image != NULL %}
+       <img src="/media/{{t.image}}" >
+     {% endif %}
+       <div class="card-body">
+         <h5 class="card-title">{{t.name}}</h5>
+         <p class="card-text">{{t.description}}</p>
+         <a href="/listofsupplier/{{t.name}}" class="btn btn-primary">Buy Stocks</a>
+       </div>
+     </div>
+   {% endfor %}
+</div>
+   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

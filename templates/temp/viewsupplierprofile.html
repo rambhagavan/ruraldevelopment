@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+      margin-top: 20px;
+      background: #fafafa;
+    }
+    /*==================================================
+      Nearby People CSS
+      ==================================================*/
+    
+    .people-nearby .google-maps {
+      background: #f8f8f8;
+      border-radius: 4px;
+      border: 1px solid #f1f2f2;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .people-nearby .google-maps .map {
+      height: 300px;
+      width: 100%;
+      border: none;
+    }
+    
+    .people-nearby .nearby-user {
+      padding: 20px 0;
+      border-top: 1px solid #f1f2f2;
+      border-bottom: 1px solid #f1f2f2;
+      margin-bottom: 20px;
+    }
+    
+    img.profile-photo-lg {
+      height: 80px;
+      width: 80px;
+      border-radius: 8%;
+    }
+input {
+  border: none;
+}
+input:focus {
+  outline: none !important;
+  box-shadow: 0 0 5px grey;
+}
+
+input[type='text'] {
+  width: 40%;
+  -webkit-transition: width 0.35s ease-in-out;
+  transition: width 0.35s ease-in-out;
+}
+
+input[type='text']:focus {
+  width: 50%;}
+</style>
+  <div class="container">
+    <div class="main-body">
+      <div class="row gutters-sm">
+        <div style="padding-top: 5%;" class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
+                {% comment %} <input style="background-color: transparent;" name="profileimage" id="formFileLg" type="file"> {% endcomment %}
+                  <img src="/media/{{pimage}}" alt="No Image" class="rounded-circle" height="150" width="150" /></input>
+                </button> 
+                <div class="mt-3">
+                  <p class="text-secondary mb-1">{{name}}</p>
+                  <p class="text-muted font-size-sm">{{city}},{{state}},{{zipcode}}</p>
+                  <form method="POST">
+                    {% csrf_token %}
+                    {% if hired == "N" %}
+                      <button type="submit" style="margin-top: 28px; width: 280px;" class="form-control btn btn-outline-primary">Hire</button> 
+
+                     {% elif hired == "R" %} 
+
+                     <a type="button-disabled" style="margin-top: 28px; width: 280px; background-color: grey;" class="form-control btn button-disabled-primary">Requested!</a> 
+
+                      {% comment %} <button type="submit" onclick="myFunction()" style="margin-top: 28px; width: 280px;" class="form-control btn btn-outline-primary">Hire</button>  {% endcomment %}
+                      {% else %}
+                          <a type="button-disabled" style="margin-top: 28px; width: 280px; background-color: grey;" class="form-control btn button-disabled-primary">Hired!</a> 
+                          {% comment %} <a type="button-disabled" href="/viewsupplierprofile/{{supplierName}}" onclick="myFunction1()" style="margin-top: 28px; width: 280px; background-color: grey;" class="form-control btn button-disabled-primary">Hired!</a>  {% endcomment %}
+
+                          {% endif %}
+                    </form>
+                  
+
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8" style="padding-top:3% ;">
+          <div class="card mb-3">
+            {% comment %} <form method="post" action="{% url 'companyprofile' %}">
+            {% csrf_token %} {% endcomment %}
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Supplier Full Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <span type="text">{{name}}</span>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <span style="color:blackgrey;">{{email}}</span>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Mobile</h6>
+                </div>
+
+                <div class="col-sm-9 text-secondary">
+                  <span type="text">{{phone}}</span>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">City</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <span type="text">{{city}}</span>
+                </div>
+              </div>
+              <hr />
+                        <div class="row">
+                            <div class="col-sm-3">
+                            <h6 class="mb-0">State</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                              <span type="text">{{state}}</span>
+                            </div>
+                        </div>
+              <hr />
+                     <div class="row">
+                        <div class="col-sm-3">
+                        <h6 class="mb-0">Zip</h6>
+                        </div>
+                        <div type="text" class="col-sm-9 text-secondary">
+                        <span type="text">{{zipcode}}</span>
+                        </div>
+                    </div>
+              <hr />
+        
+            </div>
+          </div>
+        </div>
+        
+        
+    </div>
+  </div>
+
+<script>
+  function myFunction() {
+	
+    alert("Successfully Hired!");
+  }
+  function myFunction1() {
+	
+    alert("Successfully Unhired!");
+  }
+  </script>
+  {% endblock %}

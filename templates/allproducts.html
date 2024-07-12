@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+      <div class="row col-12">
+        <form class="row g-3" style=" margin: 25px 50px 75px;" method="post" action="{% url 'allproducts' %}">
+          {% csrf_token %}
+        <div class="card-body">
+        <label>Search by state</label>
+        <select name="whichstate">
+          {% if old %}
+          <option value="{{old}}" selected>{{old}}</option>
+          {% endif %}  
+          {% for t in state %}
+            <option value="{{t}}" >{{t}}</option>
+                  {% endfor %}
+              </select>
+<button type="submit" style="width: auto;"class="btn btn-primary">Search</button>
+      </form>
+
+      </div>
+              {% for t in data %}
+              <div class="card" style="width: 18rem;">
+                {% if t.image != NULL %}
+                <img style="margin-left: 2%;"width="250px" height="250px" src="/media/{{t.image}}" >
+                {% endif %}
+                  <div class="card-body">
+                    <h5 class="card-title">{{t.name}}</h5>
+                    
+                    <p style="text-overflow: ellipsis  white-space: nowrap;
+
+                    width: 15em; height: 13em;"  class="card-text">{{t.description}}</p>
+                    {% comment %} <p class="card-text">{{t.description}}</p> {% endcomment %}
+                    <a href="/listofsupplier/{{t.name}}" class="btn btn-primary">View Suppliers</a>
+                  </div>
+                </div>
+              {% endfor %}
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}  
